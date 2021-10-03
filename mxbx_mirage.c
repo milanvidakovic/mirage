@@ -56,6 +56,11 @@ MXBXHandleEvents(mxbx_input *in)
                 shouldQuit = 1;
             } break;
         }
+    } else {
+        MXBXProcessKeyboardInput(&in->KeyboardController.MoveForward, 0);
+        MXBXProcessKeyboardInput(&in->KeyboardController.MoveBackward, 0);
+        MXBXProcessKeyboardInput(&in->KeyboardController.StrafeLeft, 0);
+        MXBXProcessKeyboardInput(&in->KeyboardController.StrafeRight, 0);
     }
     return shouldQuit;
 }
@@ -74,7 +79,7 @@ main()
 {
     init_stdio();
     video_mode(1);
-    cls();
+    cls(0);
     i8 str[256];
 
     LUTInit();
@@ -120,7 +125,7 @@ main()
 
         if(MXBXHandleEvents(newInput))
         {
-            cls();
+            cls(0);
             break;
         }
         UpdateAndRender(&state, newInput, &renderer);
